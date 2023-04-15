@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 const config = new Configuration({
-    apiKey : "sk-Xvktw2HtSDvHtuQmYXADT3BlbkFJZSWRLCaz6ENLWQGZeqazSqm"
+    apiKey : "sk-Xvktw2HtSDvHtuQmYXADT3BlbkFJZSWRLCaz6ENLWQGZeqweSqm"
 })
 
 const openai = new OpenAIApi(config);
@@ -27,7 +27,9 @@ app.post("/message", (req , res)=>{
         (data)=>{
             res.send({message :data.data.choices[0].text})
         }
-    )
+    ).catch((err)=>{
+        res.send({message : err})
+    })
 });
 
 
