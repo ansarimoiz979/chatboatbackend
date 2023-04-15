@@ -7,13 +7,27 @@ app.use(express.json());
 app.use(cors());
 
 const config = new Configuration({
-    apiKey : "thisiskey"
+    apiKey : "sk-Xvktw2HtSDvHtuQmYXADT3BlbkFJZSWRLCaz6ENLWQGZeqazSqm"
 })
 
 const openai = new OpenAIApi(config);
 
-app.post("/message", ()=>{
-
+app.post("/message", (req , res)=>{
+    console.log("hii");
+    const response = openai.createCompletion({
+        model : "text-davinci-003",
+        prompt : req.body.prompt,
+        temperature : 0,
+        top_p : 1,
+        frequency_penalty : 0,
+        presence_penalty : 0,
+        max_tokens : 1024
+    })
+    response.then(
+        (data)=>{
+            res.send({message :data.data.choices[0].text})
+        }
+    )
 });
 
 
